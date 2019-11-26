@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pUP-FP-Pfw">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Chat List View Controller-->
+        <scene sceneID="rKm-NF-cgd">
+            <objects>
+                <viewController storyboardIdentifier="ChatListViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="pUP-FP-Pfw" customClass="ChatListViewController" customModule="PubNubDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eQk-KR-LqA" customClass="ChatListView" customModule="PubNubDemo" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="m6P-ql-H1f">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="pUP-FP-Pfw" id="IQg-qv-bWP"/>
+                                    <outlet property="delegate" destination="pUP-FP-Pfw" id="T3n-Ou-9XL"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="m6P-ql-H1f" firstAttribute="leading" secondItem="eQk-KR-LqA" secondAttribute="leading" id="0fI-6a-FSO"/>
+                            <constraint firstAttribute="trailing" secondItem="m6P-ql-H1f" secondAttribute="trailing" id="31v-no-mh9"/>
+                            <constraint firstItem="m6P-ql-H1f" firstAttribute="centerX" secondItem="eQk-KR-LqA" secondAttribute="centerX" id="GgZ-mv-yiI"/>
+                            <constraint firstAttribute="bottom" secondItem="m6P-ql-H1f" secondAttribute="bottom" id="bFr-J9-sCH"/>
+                            <constraint firstItem="m6P-ql-H1f" firstAttribute="top" secondItem="eQk-KR-LqA" secondAttribute="top" id="hdV-Bg-sRo"/>
+                            <constraint firstItem="m6P-ql-H1f" firstAttribute="centerY" secondItem="eQk-KR-LqA" secondAttribute="centerY" id="lnS-aE-t4v"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="5w8-By-Or7"/>
+                        <connections>
+                            <outlet property="chatListTable" destination="m6P-ql-H1f" id="Ca1-T0-d39"/>
+                        </connections>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aII-wY-mvg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-52" y="139"/>
+        </scene>
+    </scenes>
+</document>
