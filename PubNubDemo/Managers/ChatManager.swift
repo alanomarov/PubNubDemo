@@ -57,6 +57,8 @@ final class ChatManager {
         self.uuid = config.uuid
         
         loadChannels(uuids: config.channels);
+        
+        updateHandler()
     }
 
     private func loadChannels(uuids: [String]) {

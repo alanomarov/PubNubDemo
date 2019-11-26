@@ -49,6 +49,12 @@ final class ChatViewController: MessagesViewController {
         messageDateFormatter.dateFormat = "h:mm a"
         
         self.navigationItem.rightBarButtonItem?.action = #selector(showDetails(sender:))
+        
+        if #available(iOS 13.0, *) {
+            messageInputBar.inputTextView.textColor = .black
+            messageInputBar.inputTextView.placeholderLabel.textColor = .black
+            //messageInputBar.backgroundView.backgroundColor = .systemBackground
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {

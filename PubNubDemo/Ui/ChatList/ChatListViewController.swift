@@ -32,6 +32,7 @@ final class ChatListViewController: UIViewController {
         }
         else {
             let welcomeViewController = WelcomeViewController.instantiate()
+            welcomeViewController.modalPresentationStyle = .fullScreen
             self.present(welcomeViewController, animated: true)
         }
         

@@ -12,10 +12,10 @@ fileprivate let defaultUser1 = "user1"
 fileprivate let defaultUser2 = "user2"
 fileprivate let defaultUser3 = "user3"
 
-fileprivate let user1Channels = ["chat001", "chat002"]
-fileprivate let user2Channels = ["chat001"]
-fileprivate let user3Channels = ["chat002"]
-fileprivate let defaultChannels = ["teamChat"]
+fileprivate let user1Channels = ["chat01", "chat03"]
+fileprivate let user2Channels = ["chat01"]
+fileprivate let user3Channels = ["chat03"]
+fileprivate let defaultChannels = ["teamchat"]
 
 fileprivate let user1AuthKey = "user1auth"
 fileprivate let user2AuthKey = "user2auth"
