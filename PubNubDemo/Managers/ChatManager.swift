@@ -23,29 +23,43 @@ enum RequestResult {
 /// - String: Error string
 typealias RequestHandler = (RequestResult) -> ()
 
+/// Class responsible for the chat workflow.
 final class ChatManager {
     
+    /// Returns instance of ChatManager.
     static let shared = ChatManager()
         
     private let chatClient = ChatClient()
     
+    /// The closure that will gets called every time the model is updated.
     var updateHandler: () -> Void = {}
     
     /// Channels map by uuid.
     var channels = [Channel]()
     
-    // TODO: keep only contacts
-    /// Keep list of users separately to update their status.
-    /// Users map by uuid.
-    var users: [String : User]?
-    
     /// Channel that will be used to send a message.
     var activeChannel: String?
     
+    /// Uuid used for identification on PubNub.
     var uuid: String?
+    
+    // MARK: - Private methods
     
     private init() {
     }
+    
+    /// Subscribe for channels and pull history and users.
+    private func loadChannels(uuids: [String]) {
+        for channel in uuids {
+            channels.append(Channel(uuid: channel))
+            
+            joinChannel(channel: channel)
+            fetchHistory(channel: channel)
+            fetchUsers(channel: channel)
+        }
+    }
+    
+    // MARK: - Public methods
     
     func configure(config: Config) {
         chatClient.configure(publishKey: PUBNUB_PUBLISH_KEY,
@@ -61,22 +75,19 @@ final class ChatManager {
         updateHandler()
     }
 
-    private func loadChannels(uuids: [String]) {
-        // Subscribe for channels and pull history and users.
-        for channel in uuids {
-            channels.append(Channel(uuid: channel))
-            
-            joinChannel(channel: channel)
-            fetchHistory(channel: channel)
-            fetchUsers(channel: channel)
-        }
-    }
-    
     func joinChannel(channel: String) {
+        guard self.uuid != nil else {
+            fatalError("Chat client is not configured")
+        }
+        
         chatClient.subscribeToChannel(channel: channel)
     }
     
     func leaveChannel(channel: String) {
+        guard self.uuid != nil else {
+            fatalError("Chat client is not configured")
+        }
+        
         chatClient.unsubscribeFromChannel(channel: channel)
     }
     
@@ -94,6 +105,10 @@ final class ChatManager {
     }
     
     func fetchHistory(channel: String) {
+        guard self.uuid != nil else {
+            fatalError("Chat client is not configured")
+        }
+        
         guard let channelObj = channels.first(where: { $0.uuid == channel }) else {
             // TODO: create new channel?
             return
@@ -135,9 +150,13 @@ final class ChatManager {
             }
         }
     }
+    
 }
 
+// MARK: - ChatListener
+
 extension ChatManager: ChatListener {
+    
     func messageReceived(message: Message) {
         // Find channel by id.
         guard let channel = channels.first(where: { $0.uuid == message.channelId }) else {
@@ -150,6 +169,7 @@ extension ChatManager: ChatListener {
             channel.unreadMessages += 1
         }
         
+        // Notify subscribers about data change.
         updateHandler();
     }
     
@@ -175,6 +195,7 @@ extension ChatManager: ChatListener {
             channel.removeUser(user: user)
         }
         
+        // Notify subscribers about data change.
         updateHandler();
     }
 }

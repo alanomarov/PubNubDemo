@@ -11,12 +11,17 @@ import PubNub
 import Foundation
 import MessageKit
 
+/// Class for interaction with PubNub services.
 final class ChatClient {
+    
     var pubnub: PubNub?
     var listener: ChatListener?
     
     let subscriptionListener = SubscriptionListener()
     
+    // MARK: - Public methods
+    
+    /// Send message to specified channel.
     func sendMessage(channel: String, message: Message) {
         pubnub?.publish(channel: channel, message: message) { result in
             switch result {
@@ -28,6 +33,7 @@ final class ChatClient {
         }
     }
 
+    /// Fetch history from specified channel.
     func fetchHistory(channel: String, handler: @escaping RequestHandler) {
         self.pubnub?.fetchMessageHistory(for: [channel], completion: { result in
             switch result {
@@ -43,6 +49,7 @@ final class ChatClient {
         })
     }
     
+    /// Fetch users subscribed to specified channel.
     func fetchUsers(channel: String, handler: @escaping RequestHandler) {
         self.pubnub?.hereNow(on: [channel], completion: { result in
             switch result {
@@ -56,25 +63,28 @@ final class ChatClient {
         })
     }
     
+    /// Suscribe to channel.
     func subscribeToChannel(channel: String) {
         pubnub?.subscribe(to: [channel], withPresence: true)
     }
     
+    /// Unsubscribe from channel.
     func unsubscribeFromChannel(channel: String) {
         pubnub?.unsubscribe(from: [channel])
     }
     
+    /// Configure chat client.
     func configure(publishKey: String, subscribeKey: String, uuid: String, authKey: String, listener: ChatListener?) {
         self.listener = listener
 
-        // Initialize pubnub object.
+        // Initialize PubNub object.
         var configuration = PubNubConfiguration(publishKey: publishKey, subscribeKey: subscribeKey)
         configuration.uuid = uuid
         configuration.authKey = authKey
         
         pubnub = PubNub(configuration: configuration)
         
-        // Subscribe for notifications.
+        // Subscribe for notifications from PubNub.
         subscriptionListener.didReceiveSubscription = { event in
             switch event {
                 case .messageReceived(let event):
@@ -96,4 +106,5 @@ final class ChatClient {
         
         pubnub?.add(subscriptionListener)
     }
+    
 }

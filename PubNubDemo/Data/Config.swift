@@ -24,8 +24,15 @@ fileprivate let defaultAuthKey = "teamauth"
 
 /// Class storing chat client configuration.
 struct Config {
+    
+    /// List of channels to connect.
     var channels: [String]
+    
+    /// Auth key used for user auth on PubNub service.
     var authKey: String
+    
+    /// User uuid.
+    /// NOTE: it will be used as display name also as we do not store users on server.
     var uuid: String
     
     private init(uuid: String, channels: [String], authKey: String) {
@@ -34,7 +41,7 @@ struct Config {
         self.authKey = authKey
     }
 
-    /// Storing default configs for the demo.
+    /// Get default config by username.
     static func getConfigForUser(user: String) -> Config {
         if user == defaultUser1 {
             return Config(uuid: user, channels: user1Channels, authKey: user1AuthKey)
@@ -48,5 +55,6 @@ struct Config {
         
         return Config(uuid: user, channels: defaultChannels, authKey: defaultAuthKey)
     }
+    
 }
 

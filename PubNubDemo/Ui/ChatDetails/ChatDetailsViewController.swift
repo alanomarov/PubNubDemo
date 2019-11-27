@@ -63,7 +63,8 @@ final class ChatDetailsViewController: UIViewController {
     
 }
 
-// UITableViewDelegate, UITableViewDataSource
+// MARK: UITableViewDelegate, UITableViewDataSource
+
 extension ChatDetailsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

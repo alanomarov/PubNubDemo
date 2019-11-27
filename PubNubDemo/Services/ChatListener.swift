@@ -9,8 +9,16 @@
 import Foundation
 import PubNub
 
+/// Protocol for the class listening on ChatClient events.
 protocol ChatListener {
+    
+    /// Called when new message received.
     func messageReceived(message: Message)
+    
+    /// Called when connection status changed.
     func connectionStatusChanged(status: ConnectionStatus)
+    
+    /// Called when presence changed.
     func presenceChanged(event: PresenceEvent)
+    
 }

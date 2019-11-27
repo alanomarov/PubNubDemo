@@ -9,10 +9,13 @@
 import Foundation
 import MessageKit
 
+/// Struct holding a user information.
 struct User: SenderType {
+    
     var senderId: String
     var displayName: String
 
     var firstName: String?
     var lastName: String?
+    
 }

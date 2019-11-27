@@ -11,6 +11,7 @@ import PubNub
 
 /// Helper class.
 final class Utils {
+    
     static func timetokenToDate(timetoken: Timetoken) -> Date {
         let unixTimestamp = Double(timetoken / 10000000)
         let gmtDate = Date.init(timeIntervalSince1970: unixTimestamp)
@@ -68,4 +69,5 @@ final class Utils {
         
         return users
     }
+    
 }

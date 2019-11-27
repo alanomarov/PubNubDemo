@@ -82,6 +82,8 @@ final class ChatViewController: MessagesViewController {
 // Just a requirement of MessageKit. Not used.
 let sender1 = User(senderId: "User A", displayName: "Steven")
 
+// MARK: MessagesDataSource
+
 extension ChatViewController: MessagesDataSource {
 
     func currentSender() -> SenderType {
@@ -135,6 +137,8 @@ extension ChatViewController: MessagesDataSource {
 }
 
 extension ChatViewController: MessagesDisplayDelegate, MessagesLayoutDelegate {}
+
+// MARK: InputBarAccessoryViewDelegate
 
 extension ChatViewController: InputBarAccessoryViewDelegate {
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
